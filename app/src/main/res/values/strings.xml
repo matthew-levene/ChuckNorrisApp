@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ChuckNorrisApp</string>
+    <string name="find_jokes_text">Find Jokes</string>
+    <string name="enter_keyword_hint">Enter a Keyword</string>
+    <string name="random_text">Random</string>
+    <string name="search_text">Search</string>
 </resources>
