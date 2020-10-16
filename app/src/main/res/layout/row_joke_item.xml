@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="joke"
+            type="com.ml.chucknorrisapp.model.Joke" />
+    </data>
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,6 +36,7 @@
                 style="@style/RowText"
                 android:textSize="20sp"
                 tools:text="The Chuck Norris Eclipse plugin made alien contact."
+                android:text="@{joke.joke}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
