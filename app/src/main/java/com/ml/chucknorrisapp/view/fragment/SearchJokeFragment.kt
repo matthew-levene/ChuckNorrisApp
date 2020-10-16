@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.ml.chucknorrisapp.R
 import com.ml.chucknorrisapp.databinding.FragmentSearchJokeBinding
 import com.ml.chucknorrisapp.viewmodel.JokeViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.lang.NumberFormatException
 
 /**
  * Class is used to handle search input events from the user
@@ -50,14 +52,41 @@ class SearchJokeFragment : Fragment() {
      * @param view
      */
     private fun initSearchViews(view: View){
-        searchEditText = view.findViewById(R.id.joke_search_edittext)
+        searchEditText = view.findViewById(R.id.joke_id_search_edittext)
         searchButton = view.findViewById(R.id.search_button)
     }
 
     /**
-     * Function handles the search input and passes it to the JokeViewModel
+     * Function converts the search input to an Integer value
+     * and checks if it is within range of the joke IDs
+     * If it is, then the ID is passed to the jokeViewModel
      */
     fun handleSearchInput(){
 
+        val query = searchEditText.text.toString()
+
+        if(query.isNotEmpty()){
+            try{
+                val jokeId = Integer.parseInt(query)
+                if(jokeId in 1..520) {
+                    jokeViewModel.searchSpecificJoke(jokeId)
+                    searchEditText.setText("")
+                }
+                else
+                    throw NumberFormatException()
+            }
+            catch (nfe: NumberFormatException){
+                showSnackBar(getString(R.string.please_enter_valid_num_1_and_520))
+            }
+        }
+        else
+           showSnackBar(getString(R.string.please_enter_valid_num_1_and_520))
+    }
+
+    /** Function displays a message to the user about the loading state of their request
+     *  @param text - String value representing the message to the user
+     */
+    private fun showSnackBar(text: String){
+        Snackbar.make(requireView(), text, Snackbar.LENGTH_LONG).show()
     }
 }

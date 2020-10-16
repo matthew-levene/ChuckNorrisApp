@@ -71,8 +71,12 @@ class DisplayJokeFragment : Fragment() {
                 LoadingState.Status.SUCCESS -> showSnackBar(getString(R.string.matches_retrieved_text))
                 LoadingState.Status.RUNNING -> showSnackBar(getString(R.string.matches_retrieving_text))
                 LoadingState.Status.FAILED ->  showSnackBar(getString(R.string.matches_failed_text))
-
             }
+        })
+
+        //Listen for any explicit jokes retrieved by the REST API call
+        viewModel.explicitJokeFound.observe(viewLifecycleOwner, {
+            showSnackBar(getString(R.string.unable_show_joke_explicit_references_text))
         })
     }
 
@@ -80,7 +84,7 @@ class DisplayJokeFragment : Fragment() {
      *  @param text - String value representing the message to the user
      */
     private fun showSnackBar(text: String){
-        Snackbar.make(requireView(), text, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(requireView(), text, Snackbar.LENGTH_LONG).show()
     }
 
 

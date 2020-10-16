@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">ChuckNorrisApp</string>
     <string name="find_jokes_text">Find Jokes</string>
-    <string name="enter_keyword_hint">Enter a Keyword</string>
+    <string name="enter_number_1_to_520_hint">Enter a Number between 1 and 520</string>
     <string name="random_text">Random</string>
     <string name="search_text">Search</string>
     <string name="matches_retrieving_text">Retrieving Jokes</string>
     <string name="matches_retrieved_text">Retrieved Jokes</string>
     <string name="matches_failed_text">Failed to Retrieve Jokes</string>
+    <string name="please_enter_valid_num_1_and_520">Please enter a valid number between 1 and 520</string>
+    <string name="unable_show_joke_explicit_references_text">Unable to show this joke due to explicit references</string>
 </resources>

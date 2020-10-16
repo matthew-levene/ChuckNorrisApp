@@ -31,13 +31,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/joke_search_edittext"
+            android:id="@+id/joke_id_search_edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
             android:layout_marginTop="20dp"
-            android:hint="@string/enter_keyword_hint"
-            android:textSize="24sp"
+            android:hint="@string/enter_number_1_to_520_hint"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.704"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,18 +51,18 @@
             android:text="@string/random_text"
             app:layout_constraintEnd_toStartOf="@+id/search_button"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@id/joke_search_edittext"
-            app:layout_constraintTop_toBottomOf="@id/joke_search_edittext" />
+            app:layout_constraintStart_toStartOf="@id/joke_id_search_edittext"
+            app:layout_constraintTop_toBottomOf="@id/joke_id_search_edittext" />
 
         <Button
             android:id="@+id/search_button"
             style="@style/SearchActionButton"
             android:onClick="@{() -> searchJokeFragment.handleSearchInput()}"
             android:text="@string/search_text"
-            app:layout_constraintEnd_toEndOf="@id/joke_search_edittext"
+            app:layout_constraintEnd_toEndOf="@id/joke_id_search_edittext"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/random_button"
-            app:layout_constraintTop_toBottomOf="@id/joke_search_edittext" />
+            app:layout_constraintTop_toBottomOf="@id/joke_id_search_edittext" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -21,6 +21,11 @@ class JokeViewModel(private val jokeRepository: JokeRepository) : ViewModel(){
     val jokeLiveData = jokeRepository.jokeLiveData
 
     /**
+     * Listen for explicit joke references retrieved from the repository
+     */
+    val explicitJokeFound = jokeRepository.explicitJokeFound
+
+    /**
      * Listen for changes in the Loading State and report them to the Views
      */
     private val _loadingState = MutableLiveData<LoadingState>()
@@ -42,6 +47,23 @@ class JokeViewModel(private val jokeRepository: JokeRepository) : ViewModel(){
             try {
                 _loadingState.value = LoadingState.LOADING
                 jokeRepository.getJokes()
+                _loadingState.value = LoadingState.LOADED
+            }
+            catch (exception: HttpException){
+                _loadingState.value = LoadingState.logError(exception.message())
+            }
+        }
+    }
+
+    /**
+     * Function requeests for the repository to check for a specific joke
+     * @param jokeId - ID number to reference the specific joke
+     */
+    fun searchSpecificJoke(jokeId: Int){
+        viewModelScope.launch {
+            try {
+                _loadingState.value = LoadingState.LOADING
+                jokeRepository.getSpecificJoke(jokeId)
                 _loadingState.value = LoadingState.LOADED
             }
             catch (exception: HttpException){
