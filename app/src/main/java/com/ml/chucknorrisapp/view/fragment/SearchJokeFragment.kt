@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import com.ml.chucknorrisapp.R
 import com.ml.chucknorrisapp.databinding.FragmentSearchJokeBinding
 import com.ml.chucknorrisapp.viewmodel.JokeViewModel
@@ -22,7 +23,7 @@ import java.lang.NumberFormatException
 class SearchJokeFragment : Fragment() {
 
     private val jokeViewModel:JokeViewModel by viewModel()
-    lateinit var searchEditText: EditText
+    lateinit var searchEditText: TextInputLayout
     lateinit var searchButton: Button
 
     /**
@@ -65,14 +66,14 @@ class SearchJokeFragment : Fragment() {
      */
     fun handleSearchInput(){
 
-        val query = searchEditText.text.toString()
+        val query = searchEditText.editText.toString()
 
         if(query.isNotEmpty()){
             try{
                 val jokeId = Integer.parseInt(query)
                 if(jokeId in 1..520) {
                     jokeViewModel.searchSpecificJoke(jokeId)
-                    searchEditText.setText("")
+                    searchEditText.editText?.setText("")
                 }
                 else
                     throw NumberFormatException()
