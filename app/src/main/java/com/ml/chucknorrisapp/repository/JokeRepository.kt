@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.ml.chucknorrisapp.model.JokeResponse
 import com.ml.chucknorrisapp.model.db.JokeDao
 import com.ml.chucknorrisapp.model.network.JokeApiService
+import com.ml.chucknorrisapp.model.network.NetworkConstants.EXPLICIT
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.withContext
@@ -40,7 +41,7 @@ class JokeRepository(
         withContext(Dispatchers.IO){
             try {
                 val jokeResponse = jokeApiService.getRandomJokes().await()
-                jokeDao.deleteAllJokes()
+                    //jokeDao.deleteAllJokes()
                 jokeDao.insertJokes(jokeResponse)
             }catch (exception: HttpException){
                 throw HttpException(exception.response())
@@ -60,7 +61,7 @@ class JokeRepository(
                 withContext(Dispatchers.IO) {
                     val joke = jokeApiService.getSpecificJoke(jokeId).await().joke
 
-                    if (joke.categories.contains("explicit")) {
+                    if (joke.categories.contains(EXPLICIT)) {
                         isExplicit = true
                         return@withContext
                     }
@@ -70,7 +71,7 @@ class JokeRepository(
                 }
 
                 if (isExplicit){
-                    _explicitJokeFound.value = "explicit"
+                    _explicitJokeFound.value = EXPLICIT
                 }
             }catch (exception: HttpException){
                 throw HttpException(exception.response())
