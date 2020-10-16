@@ -1,5 +1,7 @@
 package com.ml.chucknorrisapp.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -9,8 +11,10 @@ import com.google.gson.annotations.SerializedName
  * - A String literal containing the joke
  * - A List of categories the joke falls into to
  */
+@Entity
 data class Joke (
-	@SerializedName("id") val id : Int,
+
+	@PrimaryKey @SerializedName("id") val id : Int,
 	@SerializedName("joke") val joke : String,
 	@SerializedName("categories") val categories : List<String>
 )
