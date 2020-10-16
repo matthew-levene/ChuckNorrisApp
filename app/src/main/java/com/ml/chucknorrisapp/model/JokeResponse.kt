@@ -12,6 +12,7 @@ import com.google.gson.annotations.SerializedName
  */
 @Entity
 data class JokeResponse (
+	var jokeSelectedId: Int = 0,
 	@PrimaryKey val jokeResponseId: Int = 1,
 	@SerializedName("value") val value : List<Joke>
 )

@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ml.chucknorrisapp.R
 import com.ml.chucknorrisapp.databinding.RowJokeItemBinding
 import com.ml.chucknorrisapp.model.Joke
+import com.ml.chucknorrisapp.model.JokeResponse
 
 /**
  * Class is used to provide data to the RecyclerView using data binding
  */
-class JokeAdapter : RecyclerView.Adapter<JokeAdapter.JokeViewHolder>(){
+class JokeAdapter(private val jokeClick: JokeClick) : RecyclerView.Adapter<JokeAdapter.JokeViewHolder>(){
 
+    lateinit var jokeResponse: JokeResponse
     var jokesList: List<Joke> = listOf()
     set(value) {
         field = value
@@ -37,6 +39,9 @@ class JokeAdapter : RecyclerView.Adapter<JokeAdapter.JokeViewHolder>(){
     override fun onBindViewHolder(holder: JokeViewHolder, position: Int) {
         holder.binding.also {
             it.joke = jokesList[position]
+            it.jokeResponse = jokeResponse
+            it.position = position
+            it.jokeClick = jokeClick
         }
     }
 
@@ -52,4 +57,14 @@ class JokeAdapter : RecyclerView.Adapter<JokeAdapter.JokeViewHolder>(){
      * Subclass is used to provide custom ViewHolder functionality to the JokeAdapter class
      */
     class JokeViewHolder(val binding: RowJokeItemBinding) : RecyclerView.ViewHolder(binding.root)
+
+    /**
+     * Class is used to handle click events on the RecyclerView
+     */
+    class JokeClick(val block: (JokeResponse) -> Unit){
+        fun onClick(jokeResponse: JokeResponse, position: Int){
+            jokeResponse.jokeSelectedId = position
+            block(jokeResponse)
+        }
+    }
 }

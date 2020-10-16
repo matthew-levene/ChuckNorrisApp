@@ -68,7 +68,7 @@ class JokeRepository(
                     }
 
                     jokeDao.deleteAllJokes()
-                    jokeDao.insertJokes(JokeResponse(1, listOf(joke)))
+                    jokeDao.insertJokes(JokeResponse(0, 1, listOf(joke)))
                 }
 
                 if (isExplicit){

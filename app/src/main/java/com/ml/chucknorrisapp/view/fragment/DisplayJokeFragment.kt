@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ml.chucknorrisapp.R
 import com.ml.chucknorrisapp.util.LoadingState
 import com.ml.chucknorrisapp.view.adapter.JokeAdapter
+import com.ml.chucknorrisapp.view.adapter.JokeAdapter.*
 import com.ml.chucknorrisapp.viewmodel.JokeViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -47,7 +48,9 @@ class DisplayJokeFragment : Fragment() {
      * Function initialises the RecyclerView and Adapter
      */
     private fun initRecyclerView(view: View){
-        jokeAdapter = JokeAdapter()
+        jokeAdapter = JokeAdapter(JokeClick {
+            showSnackBar("${it.jokeSelectedId}")
+        })
         view.findViewById<RecyclerView>(R.id.joke_display_recyclerview).apply {
             adapter = jokeAdapter
         }
@@ -62,6 +65,7 @@ class DisplayJokeFragment : Fragment() {
 
             it?.let {
                 jokeAdapter.jokesList = it.value
+                jokeAdapter.jokeResponse = it
             }
         })
 

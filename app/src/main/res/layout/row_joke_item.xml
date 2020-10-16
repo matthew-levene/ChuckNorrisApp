@@ -7,6 +7,18 @@
         <variable
             name="joke"
             type="com.ml.chucknorrisapp.model.Joke" />
+
+        <variable
+            name="jokeResponse"
+            type="com.ml.chucknorrisapp.model.JokeResponse" />
+
+        <variable
+            name="jokeClick"
+            type="com.ml.chucknorrisapp.view.adapter.JokeAdapter.JokeClick" />
+
+        <variable
+            name="position"
+            type="Integer" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -47,6 +59,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 />
+
+            <View
+                android:id="@+id/clickableOverlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="?attr/selectableItemBackground"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:onClick="@{() -> jokeClick.onClick(jokeResponse,position)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
