@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ml.chucknorrisapp.model.Joke
+import com.ml.chucknorrisapp.model.JokeResponse
 import com.ml.chucknorrisapp.repository.JokeRepository
 import com.ml.chucknorrisapp.util.LoadingState
 import kotlinx.coroutines.cancel
@@ -24,6 +26,13 @@ class JokeViewModel(private val jokeRepository: JokeRepository) : ViewModel(){
      * Listen for explicit joke references retrieved from the repository
      */
     val explicitJokeFound = jokeRepository.explicitJokeFound
+
+    /**
+     * Listen for events caused by a joke being clicked on the view
+     */
+    private var _jokeSelectedProperty = MutableLiveData<JokeResponse>()
+    val jokeSelectedProperty: LiveData<JokeResponse>
+    get() = _jokeSelectedProperty
 
     /**
      * Listen for changes in the Loading State and report them to the Views
@@ -72,6 +81,15 @@ class JokeViewModel(private val jokeRepository: JokeRepository) : ViewModel(){
         }
 
     }
+
+    /**
+     * Function stores the JokeResponse object for joke click event handling
+     * @param jokeResponse
+     */
+    fun storeJokeResponse(jokeResponse: JokeResponse){
+        _jokeSelectedProperty.value = jokeResponse
+    }
+
     override fun onCleared() {
         super.onCleared()
         viewModelScope.cancel()

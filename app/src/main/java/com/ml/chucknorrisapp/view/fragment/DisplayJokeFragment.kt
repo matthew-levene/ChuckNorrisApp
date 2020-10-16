@@ -1,5 +1,7 @@
 package com.ml.chucknorrisapp.view.fragment
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.ml.chucknorrisapp.R
+import com.ml.chucknorrisapp.model.JokeResponse
 import com.ml.chucknorrisapp.util.LoadingState
 import com.ml.chucknorrisapp.view.adapter.JokeAdapter
 import com.ml.chucknorrisapp.view.adapter.JokeAdapter.*
@@ -49,7 +52,7 @@ class DisplayJokeFragment : Fragment() {
      */
     private fun initRecyclerView(view: View){
         jokeAdapter = JokeAdapter(JokeClick {
-            showSnackBar("${it.jokeSelectedId}")
+            viewModel.storeJokeResponse(it)
         })
         view.findViewById<RecyclerView>(R.id.joke_display_recyclerview).apply {
             adapter = jokeAdapter
@@ -82,6 +85,11 @@ class DisplayJokeFragment : Fragment() {
         viewModel.explicitJokeFound.observe(viewLifecycleOwner, {
             showSnackBar(getString(R.string.unable_show_joke_explicit_references_text))
         })
+
+        //Listen for any joke click events saved to the view model
+        viewModel.jokeSelectedProperty.observe(viewLifecycleOwner, {
+            showJokeOptionsDialog(it)
+        })
     }
 
     /** Function displays a message to the user about the loading state of their request
@@ -89,6 +97,26 @@ class DisplayJokeFragment : Fragment() {
      */
     private fun showSnackBar(text: String){
         Snackbar.make(requireView(), text, Snackbar.LENGTH_LONG).show()
+    }
+
+    /**
+     * Function displays a AlertDialog to the user confirming if they want
+     * to save the joke to their favourites
+     */
+    private fun showJokeOptionsDialog(jokeResponse: JokeResponse){
+        AlertDialog.Builder(requireContext())
+            .setTitle("Save Joke to Favourites?")
+            .setIcon(R.drawable.ic_star)
+            .setMessage(jokeResponse.value[jokeResponse.jokeSelectedId].joke)
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
+                dialogInterface.dismiss()
+            }
+            .setNegativeButton("No") { dialogInterface: DialogInterface, i: Int ->
+                dialogInterface.dismiss()
+            }
+            .create()
+            .show()
     }
 
 
