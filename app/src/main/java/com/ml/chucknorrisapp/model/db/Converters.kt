@@ -17,7 +17,7 @@ class Converters {
      * @return String representation of the list
      */
     @TypeConverter
-    fun jokeListToJson(jokes: List<Joke>) : String{
+    fun jokeListToJson(jokes: List<Joke>) : String {
         return Gson().toJson(jokes)
     }
 
@@ -30,4 +30,27 @@ class Converters {
     fun jokeListFromJson(value: String): List<Joke> {
         return Gson().fromJson(value, Array<Joke>::class.java).toList()
     }
+
+    /**
+     * Function converts list of String objects to String
+     * @param categories
+     * @return String representation of the list
+     */
+
+    @TypeConverter
+    fun stringListToJson(categories: List<String>) : String {
+        return Gson().toJson(categories)
+    }
+
+    /**
+     * Function takes a parameter of string and retrieves a list
+     * @param value
+     * @return List of String objects
+     */
+    @TypeConverter
+    fun stringListFromJson(value: String): List<String> {
+        return Gson().fromJson(value, Array<String>::class.java).toList()
+    }
+
+
 }
