@@ -4,4 +4,7 @@
     <string name="enter_keyword_hint">Enter a Keyword</string>
     <string name="random_text">Random</string>
     <string name="search_text">Search</string>
+    <string name="matches_retrieving_text">Retrieving Jokes</string>
+    <string name="matches_retrieved_text">Retrieved Jokes</string>
+    <string name="matches_failed_text">Failed to Retrieve Jokes</string>
 </resources>
