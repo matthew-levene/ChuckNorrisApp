@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ml.chucknorrisapp.model.Joke
 import com.ml.chucknorrisapp.model.JokeResponse
 import com.ml.chucknorrisapp.model.db.JokeDao
 import com.ml.chucknorrisapp.model.network.JokeApiService
@@ -83,4 +84,26 @@ class JokeRepository(
      * interested ViewModel classes.
      */
     val jokeLiveData = jokeDao.getJokes()
+
+    /**
+     * Function inserts a favourite joke into the Joke table
+     * @param joke - Instance of a Joke object
+     */
+    fun insertFavouriteJoke(joke: Joke){
+        jokeDao.insertFavouriteJoke(joke)
+    }
+
+    /**
+     * Listen for changes within the Jokes table and reports them back to any interested
+     * ViewModel classes
+     */
+    val favouriteJokesLiveData = jokeDao.getFavouriteJokes()
+
+    /**
+     * Function deletes a favourite joke from the Joke table
+     * @param joke - Instance of a Joke object
+     */
+    fun deleteFavouriteJoke(joke: Joke){
+        jokeDao.deleteFavouriteJoke(joke)
+    }
 }
