@@ -1,9 +1,11 @@
 package com.ml.chucknorrisapp.view.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
@@ -74,13 +76,18 @@ class SearchJokeFragment : Fragment() {
                 }
                 else
                     throw NumberFormatException()
+
+                hideKeyboard()
             }
             catch (nfe: NumberFormatException){
                 showSnackBar(getString(R.string.please_enter_valid_num_1_and_520))
+                hideKeyboard()
             }
         }
-        else
-           showSnackBar(getString(R.string.please_enter_valid_num_1_and_520))
+        else {
+            showSnackBar(getString(R.string.please_enter_valid_num_1_and_520))
+            hideKeyboard()
+        }
     }
 
     /** Function displays a message to the user about the loading state of their request
@@ -88,5 +95,12 @@ class SearchJokeFragment : Fragment() {
      */
     private fun showSnackBar(text: String){
         Snackbar.make(requireView(), text, Snackbar.LENGTH_LONG).show()
+    }
+
+    /**Function hides the on-screen keyboard when the user presses the search button
+     */
+    private fun hideKeyboard(){
+        val inputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 }
