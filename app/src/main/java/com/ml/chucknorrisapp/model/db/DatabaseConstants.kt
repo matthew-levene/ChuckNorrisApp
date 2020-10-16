@@ -28,4 +28,9 @@ object DatabaseConstants {
      * Query to retrieve everything from the JokeResponse table
      */
     const val SELECT_ALL_JOKES = "SELECT * FROM JokeResponse"
+
+    /**
+     * Query to retrieve everything from the Joke table
+     */
+    const val SELECT_ALL_FAVOURITE_JOKES = "SELECT * FROM Joke"
 }

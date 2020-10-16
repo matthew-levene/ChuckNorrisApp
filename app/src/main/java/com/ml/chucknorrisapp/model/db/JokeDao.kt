@@ -1,13 +1,13 @@
 package com.ml.chucknorrisapp.model.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.ml.chucknorrisapp.model.Joke
 import com.ml.chucknorrisapp.model.JokeResponse
 import com.ml.chucknorrisapp.model.db.DatabaseConstants.DELETE_ALL_JOKES
+import com.ml.chucknorrisapp.model.db.DatabaseConstants.SELECT_ALL_FAVOURITE_JOKES
 import com.ml.chucknorrisapp.model.db.DatabaseConstants.SELECT_ALL_JOKES
+import retrofit2.http.DELETE
 
 /**
  * Interface is used by the Room database to execute data access requests
@@ -33,6 +33,26 @@ interface JokeDao {
      */
     @Query(DELETE_ALL_JOKES)
     fun  deleteAllJokes()
+
+    /**
+     * Function inserts a favourite joke into the Joke table
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertFavouriteJoke(joke: Joke)
+
+    /**
+     * Function retrieves all favourite jokes from the Joke table
+     */
+    @Query(SELECT_ALL_FAVOURITE_JOKES)
+    fun getFavouriteJokes() : LiveData<List<Joke>>
+
+
+    /**
+     * Function deletes a favourite joke from the Joke table
+     */
+    @Delete
+    fun deleteFavouriteJoke(joke: Joke)
+
 
 
 }
