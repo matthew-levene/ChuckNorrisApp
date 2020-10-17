@@ -2,13 +2,11 @@ package com.ml.chucknorrisapp.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Display
-import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ml.chucknorrisapp.R
-import com.ml.chucknorrisapp.view.fragment.DisplayJokeFragment
-import com.ml.chucknorrisapp.view.fragment.SearchJokeFragment
+import com.ml.chucknorrisapp.view.fragment.FavouritesFragment
+import com.ml.chucknorrisapp.view.fragment.HomeFragment
 
 /**
  * Class is used as the entry point for the application
@@ -21,10 +19,12 @@ class HomeActivity : AppCompatActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when(item.itemId){
             R.id.nav_home -> {
+                val homeFragment = HomeFragment()
+                loadFragment(homeFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_favourites -> {
-
+                val favouriteFragment = FavouritesFragment()
                 return@OnNavigationItemSelectedListener true }
         }
         false
@@ -33,19 +33,8 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        loadFragments()
         loadBottomNavigation()
-    }
-
-    /**
-     * Function loads SearchJokeFragment and DisplayJokeFragment into FrameLayouts
-     */
-    private fun loadFragments(){
-        supportFragmentManager
-            .beginTransaction()
-            .add(R.id.search_frame, SearchJokeFragment())
-            .add(R.id.display_frame, DisplayJokeFragment())
-            .commit()
+        loadFragment(HomeFragment())
     }
 
     /**
@@ -54,6 +43,18 @@ class HomeActivity : AppCompatActivity() {
     private fun loadBottomNavigation(){
         val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
         bottomNavigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+    }
+
+    /**
+     * Function is used to open a load a fragment into a FrameLayout
+     * @param fragment
+     */
+    private fun loadFragment(fragment: Fragment){
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_frame, fragment)
+            .commit()
+
     }
 
 
