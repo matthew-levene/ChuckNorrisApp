@@ -34,7 +34,7 @@ class HomeFragment : Fragment(){
     private lateinit var jokeAdapter:JokeAdapter
 
     /**
-     * Function is used to bind the layout file to application componetns
+     * Function is used to bind the layout file to application components
      */
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +50,7 @@ class HomeFragment : Fragment(){
     }
 
     /**
-     * Function is executed when the view becomes visibile to the user
+     * Function is executed when the view becomes visible to the user
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
