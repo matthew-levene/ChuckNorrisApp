@@ -2,6 +2,7 @@ package com.ml.chucknorrisapp.view.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,7 +67,7 @@ class SearchJokeFragment : Fragment() {
      */
     fun handleSearchInput(){
 
-        val query = searchEditText.editText.toString()
+        val query = searchEditText.editText?.text.toString()
 
         if(query.isNotEmpty()){
             try{
