@@ -9,4 +9,6 @@
     <string name="matches_failed_text">Failed to Retrieve Jokes</string>
     <string name="please_enter_valid_num_1_and_520">Please enter a valid number between 1 and 520</string>
     <string name="unable_show_joke_explicit_references_text">Unable to show this joke due to explicit references</string>
+    <string name="home_text">Home</string>
+    <string name="favourites_text">Favourites</string>
 </resources>
