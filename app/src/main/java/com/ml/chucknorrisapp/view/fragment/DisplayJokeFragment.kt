@@ -14,6 +14,7 @@ import com.ml.chucknorrisapp.model.JokeResponse
 import com.ml.chucknorrisapp.util.LoadingState
 import com.ml.chucknorrisapp.view.adapter.JokeAdapter
 import com.ml.chucknorrisapp.view.adapter.JokeAdapter.*
+import com.ml.chucknorrisapp.viewmodel.FavouriteJokeViewModel
 import com.ml.chucknorrisapp.viewmodel.JokeViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -24,6 +25,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
  */
 class DisplayJokeFragment : Fragment() {
 
+    private val favouriteJokeViewModel:FavouriteJokeViewModel by viewModel()
     private val viewModel:JokeViewModel by viewModel()
     private lateinit var jokeAdapter:JokeAdapter
 
@@ -110,6 +112,9 @@ class DisplayJokeFragment : Fragment() {
             .setMessage(jokeResponse.value[jokeResponse.jokeSelectedId].joke)
             .setCancelable(false)
             .setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
+                favouriteJokeViewModel.addFavouriteJoke(
+                    jokeResponse.value[jokeResponse.jokeSelectedId]
+                )
                 dialogInterface.dismiss()
             }
             .setNegativeButton("No") { dialogInterface: DialogInterface, i: Int ->
