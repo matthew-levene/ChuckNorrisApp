@@ -25,6 +25,7 @@ class HomeActivity : AppCompatActivity() {
             }
             R.id.nav_favourites -> {
                 val favouriteFragment = FavouritesFragment()
+                loadFragment(favouriteFragment)
                 return@OnNavigationItemSelectedListener true }
         }
         false
@@ -56,6 +57,4 @@ class HomeActivity : AppCompatActivity() {
             .commit()
 
     }
-
-
 }
