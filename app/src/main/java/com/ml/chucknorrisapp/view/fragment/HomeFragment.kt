@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.ml.chucknorrisapp.R
@@ -89,7 +90,7 @@ class HomeFragment : Fragment(){
 
         val query = searchEditText.editText?.text.toString()
 
-        if(query.isNotEmpty()){
+        if(!query.isNullOrBlank()){
             try{
                 val jokeId = Integer.parseInt(query)
                 if(jokeId in 1..520) {
@@ -116,7 +117,10 @@ class HomeFragment : Fragment(){
      *  @param text - String value representing the message to the user
      */
     private fun showSnackBar(text: String){
-        Snackbar.make(requireView(), text, Snackbar.LENGTH_LONG).show()
+        val bottomNavView:BottomNavigationView = requireActivity().findViewById(R.id.navigationView)
+        Snackbar.make(bottomNavView, text, Snackbar.LENGTH_LONG).apply {
+            anchorView = bottomNavView
+        }.show()
     }
 
     /**
@@ -165,7 +169,6 @@ class HomeFragment : Fragment(){
         //Listen for any changes in loading state on the REST API call
         jokeViewModel.loadingState.observe(viewLifecycleOwner, {
             when(it.status){
-                LoadingState.Status.SUCCESS -> showSnackBar(getString(R.string.matches_retrieved_text))
                 LoadingState.Status.RUNNING -> showSnackBar(getString(R.string.matches_retrieving_text))
                 LoadingState.Status.FAILED ->  showSnackBar(getString(R.string.matches_failed_text))
             }
@@ -173,6 +176,7 @@ class HomeFragment : Fragment(){
 
         //Listen for any explicit jokes retrieved by the REST API call
         jokeViewModel.explicitJokeFound.observe(viewLifecycleOwner, {
+            Thread.sleep(500)
             showSnackBar(getString(R.string.unable_show_joke_explicit_references_text))
         })
 
