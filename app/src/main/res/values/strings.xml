@@ -4,7 +4,7 @@
     <string name="enter_number_1_to_520_hint">Enter a Number between 1 and 520</string>
     <string name="random_text">Random</string>
     <string name="search_text">Search</string>
-    <string name="matches_retrieving_text">Retrieving Jokes</string>
+    <string name="matches_retrieving_text">Attempting to retrieve jokes..</string>
     <string name="matches_retrieved_text">Retrieved Jokes</string>
     <string name="matches_failed_text">Failed to Retrieve Jokes</string>
     <string name="please_enter_valid_num_1_and_520">Please enter a valid number between 1 and 520</string>
@@ -14,4 +14,5 @@
     <string name="yes_option_text">Yes</string>
     <string name="no_option_text">No</string>
     <string name="save_joke_to_favourites_text">Save Joke to Favourites?</string>
+    <string name="successfully_deleted_from_favourites_text">Joke successfully deleted from favourites</string>
 </resources>
