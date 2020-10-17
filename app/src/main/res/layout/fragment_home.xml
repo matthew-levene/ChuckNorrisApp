@@ -30,16 +30,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/favourites_imageview"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/ic_star"
-            app:layout_constraintEnd_toEndOf="@id/joke_id_search_edittext"
-            app:layout_constraintTop_toTopOf="@id/find_jokes_textview"
-            app:layout_constraintBottom_toBottomOf="@id/find_jokes_textview"/>
-
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/joke_id_search_edittext"
             android:layout_margin="24dp"
