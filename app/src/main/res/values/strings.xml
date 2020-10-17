@@ -11,4 +11,7 @@
     <string name="unable_show_joke_explicit_references_text">Unable to show this joke due to explicit references</string>
     <string name="home_text">Home</string>
     <string name="favourites_text">Favourites</string>
+    <string name="yes_option_text">Yes</string>
+    <string name="no_option_text">No</string>
+    <string name="save_joke_to_favourites_text">Save Joke to Favourites?</string>
 </resources>
