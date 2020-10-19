@@ -9,8 +9,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ml.chucknorrisapp.R
+import com.ml.chucknorrisapp.R.*
+import com.ml.chucknorrisapp.R.id.*
 import junit.framework.Assert.*
 import org.hamcrest.Matchers.allOf
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -24,33 +27,27 @@ class HomeActivityTest {
     @JvmField
     val activityTestRule: ActivityTestRule<HomeActivity> = ActivityTestRule(HomeActivity::class.java)
 
-    private val menuLocationIds = intArrayOf(R.id.nav_home, R.id.nav_favourites)
+    private val menuLocationIds = intArrayOf(nav_home, nav_favourites)
 
-    private var menuLocationNames: Map<Int, String>? = null
+    private lateinit var menuLocationNames: Map<Int, String>
 
-    private var bottomNavigation: BottomNavigationView? = null
+    private lateinit var bottomNavigation:BottomNavigationView
 
     @Before
     fun setUp() {
         val activity = activityTestRule.activity
-        bottomNavigation = activity.findViewById(R.id.navigationView)
+        bottomNavigation = activity.findViewById(navigationView)
         val res = activity.resources
 
         menuLocationNames = mapOf(
-            R.id.nav_home to res.getString(R.string.home_text),
-            R.id.nav_favourites to res.getString(R.string.favourites_text)
+            nav_home to res.getString(string.home_text),
+            nav_favourites to res.getString(string.favourites_text)
         )
     }
 
     @Test
-    fun testBottomNav_isDisplayedSuccessfully(){
-        onView(withId(R.id.navigationView))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
     fun testBottomNav_checkMenuContents(){
-        val menu = bottomNavigation!!.menu
+        val menu = bottomNavigation.menu
 
         assertNotNull("Menu should not be null", menu)
         assertEquals("Should have matching number of items", menuLocationIds.size, menu.size())
@@ -61,52 +58,59 @@ class HomeActivityTest {
     }
 
     @Test
+    fun testBottomNav_isDisplayedSuccessfully(){
+        onView(withId(navigationView))
+            .check(matches(isDisplayed()))
+    }
+
+
+    @Test
     fun testNavigationSelectionListener_clickHomeFragment(){
         //Arrange
         val mockedListener = mock(BottomNavigationView.OnNavigationItemSelectedListener::class.java)
-        bottomNavigation?.setOnNavigationItemSelectedListener(mockedListener)
+        bottomNavigation.setOnNavigationItemSelectedListener(mockedListener)
 
         `when`(mockedListener.onNavigationItemSelected(any(MenuItem::class.java))).thenReturn(true)
 
         //Act
         onView(
-            allOf(withText(menuLocationNames?.get(R.id.nav_home)),
-                isDescendantOfA(withId(R.id.navigationView)),
+            allOf(withText(menuLocationNames[nav_home]),
+                isDescendantOfA(withId(navigationView)),
                 isDisplayed()
             ))
             .perform(click())
 
-        //Verify that the listener is aware a click occurred
-        bottomNavigation?.menu?.findItem(R.id.nav_home)?.let {
-            verify(mockedListener).onNavigationItemSelected(it)
-        }
+        //Assert
+        verify(mockedListener)
+            .onNavigationItemSelected(
+                bottomNavigation.menu.findItem(nav_home)
+            )
 
-        //Assert that the menu item is now selected
-        bottomNavigation?.menu?.findItem(R.id.nav_home)?.isChecked?.let { assertTrue(it) };
+        assertTrue(bottomNavigation.menu.findItem(nav_home).isChecked)
     }
 
     @Test
     fun testNavigationSelectionListener_clickFavouriteFragment(){
         //Arrange
         val mockedListener = mock(BottomNavigationView.OnNavigationItemSelectedListener::class.java)
-        bottomNavigation?.setOnNavigationItemSelectedListener(mockedListener)
+        bottomNavigation.setOnNavigationItemSelectedListener(mockedListener)
 
         `when`(mockedListener.onNavigationItemSelected(any(MenuItem::class.java))).thenReturn(true)
 
         //Act
         onView(
-            allOf(withText(menuLocationNames?.get(R.id.nav_favourites)),
-                isDescendantOfA(withId(R.id.navigationView)),
+            allOf(withText(menuLocationNames[nav_favourites]),
+                isDescendantOfA(withId(navigationView)),
                 isDisplayed()
             ))
             .perform(click())
 
-        //Verify that the listener is aware a click occurred
-        bottomNavigation?.menu?.findItem(R.id.nav_favourites)?.let {
-            verify(mockedListener, times(1)).onNavigationItemSelected(it)
-        }
+        //Assert
+        verify(mockedListener)
+            .onNavigationItemSelected(
+                bottomNavigation.menu.findItem(nav_favourites)
+            )
 
-        //Assert that the menu item is now selected
-        bottomNavigation?.menu?.findItem(R.id.nav_favourites)?.isChecked?.let { assertTrue(it) };
+        assertTrue(bottomNavigation.menu.findItem(nav_favourites).isChecked)
     }
 }

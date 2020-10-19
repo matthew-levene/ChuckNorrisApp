@@ -11,6 +11,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ml.chucknorrisapp.R
 import com.ml.chucknorrisapp.view.activity.HomeActivity
 import com.ml.chucknorrisapp.view.adapter.JokeAdapter
+import com.ml.chucknorrisapp.view.adapter.JokeAdapter.*
 import org.hamcrest.Matchers.*
 import org.junit.Before
 import org.junit.Rule
@@ -23,14 +24,11 @@ class FavouritesFragmentTest {
     @JvmField
     val activityTestRule: ActivityTestRule<HomeActivity> = ActivityTestRule(HomeActivity::class.java)
 
-    private var menuLocationNames: Map<Int, String>? = null
-
-    private var bottomNavigation: BottomNavigationView? = null
+    private lateinit var menuLocationNames: Map<Int, String>
 
     @Before
     fun setUp() {
         val activity = activityTestRule.activity
-        bottomNavigation = activity.findViewById(R.id.navigationView)
         val res = activity.resources
 
         menuLocationNames = mapOf(
@@ -40,27 +38,11 @@ class FavouritesFragmentTest {
     }
 
     @Test
-    fun testNavigation_loadFavouritesFragment(){
-        onView(
-            allOf(
-                withText(menuLocationNames?.get(R.id.nav_favourites)),
-                isDescendantOfA(withId(R.id.navigationView)),
-                isDisplayed()
-            )
-        )
-            .perform(click())
-
-        onView(withId(R.id.favourites_recyclerview))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
     fun testClick_recyclerViewItem() {
-
         //Navigate to FavouritesFragment
         onView(
             allOf(
-                withText(menuLocationNames?.get(R.id.nav_favourites)),
+                withText(menuLocationNames[R.id.nav_favourites]),
                 isDescendantOfA(withId(R.id.navigationView)),
                 isDisplayed()
             )
@@ -71,7 +53,7 @@ class FavouritesFragmentTest {
         onView(withId(R.id.favourites_recyclerview))
             .check(matches(isDisplayed())) //Check if the RecyclerView is displayed
             .perform(
-                RecyclerViewActions.actionOnItemAtPosition<JokeAdapter.JokeViewHolder>(
+                RecyclerViewActions.actionOnItemAtPosition<JokeViewHolder>(
                     0,
                     click()
                 )
@@ -86,8 +68,8 @@ class FavouritesFragmentTest {
         onView(withId(R.id.favourites_recyclerview))
             .check(matches(isDisplayed())) //Check if the RecyclerView is displayed
             .perform(
-                RecyclerViewActions.actionOnItemAtPosition<JokeAdapter.JokeViewHolder>(
-                    5,
+                RecyclerViewActions.actionOnItemAtPosition<JokeViewHolder>(
+                    1,
                     click()
                 )
             )
