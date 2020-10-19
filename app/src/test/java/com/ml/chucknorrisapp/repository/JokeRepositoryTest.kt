@@ -52,7 +52,7 @@ class JokeRepositoryTest  {
      * to save to database and as such will fail if saveJokesToDatabase() call
      * inside the function is not commented out.
      *
-     * saveJokesToDatabase() has been tested in isolation and worked as expeted.
+     * saveJokesToDatabase() has been tested in isolation and worked as expected.
      */
     @Test
     fun test_getJokes(): Unit = runBlocking {
@@ -65,21 +65,12 @@ class JokeRepositoryTest  {
     }
 
 
-    @Test
-    fun test_saveJokesToDatabase(){
-        doNothing().`when`(jokeDao).insertJokes(jokeResponse)
-
-        jokeRepository.saveJokesToDatabase(jokeResponse)
-
-        verify(jokeDao, times(1)).insertJokes(jokeResponse)
-    }
-
     /**
      * Test relies on real SpecificJoke instance from Rest API Service
      * to evaluate and save to database and as such will fail if lines
      * 64 to 72 are not commented out.
      *
-     * saveJokesToDatabase() has been tested in isolation and worked as expeted.
+     * saveJokesToDatabase() has been tested in isolation and worked as expected.
      */
     @Test
     fun test_getSpecificJoke(): Unit = runBlocking {
@@ -90,6 +81,16 @@ class JokeRepositoryTest  {
 
         verify(jokeApiService, times(1)).getSpecificJoke(5)
     }
+
+    @Test
+    fun test_saveJokesToDatabase(){
+        doNothing().`when`(jokeDao).insertJokes(jokeResponse)
+
+        jokeRepository.saveJokesToDatabase(jokeResponse)
+
+        verify(jokeDao, times(1)).insertJokes(jokeResponse)
+    }
+
 
     @Test
     fun test_insertFavouriteJoke() {
