@@ -42,7 +42,6 @@ class JokeRepository(
         withContext(Dispatchers.IO){
             try {
                 val jokeResponse = jokeApiService.getRandomJokes().await()
-                    //jokeDao.deleteAllJokes()
                 saveJokesToDatabase(jokeResponse)
             }catch (exception: HttpException){
                 throw HttpException(exception.response())
