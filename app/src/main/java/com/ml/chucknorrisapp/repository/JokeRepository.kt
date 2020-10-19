@@ -43,7 +43,7 @@ class JokeRepository(
             try {
                 val jokeResponse = jokeApiService.getRandomJokes().await()
                     //jokeDao.deleteAllJokes()
-                jokeDao.insertJokes(jokeResponse)
+                saveJokesToDatabase(jokeResponse)
             }catch (exception: HttpException){
                 throw HttpException(exception.response())
             }
@@ -59,8 +59,9 @@ class JokeRepository(
     suspend fun getSpecificJoke(jokeId:Int){
             try {
                 var isExplicit = false
-                withContext(Dispatchers.IO) {
-                    val joke = jokeApiService.getSpecificJoke(jokeId).await().joke
+               withContext(Dispatchers.IO) {
+                    val specificJoke = jokeApiService.getSpecificJoke(jokeId).await()
+                    val joke = specificJoke.joke
 
                     if (joke.categories.contains(EXPLICIT)) {
                         isExplicit = true
@@ -68,7 +69,7 @@ class JokeRepository(
                     }
 
                     jokeDao.deleteAllJokes()
-                    jokeDao.insertJokes(JokeResponse(0, 1, listOf(joke)))
+                    saveJokesToDatabase(JokeResponse(0, 1, listOf(joke)))
                 }
 
                 if (isExplicit){
@@ -78,6 +79,15 @@ class JokeRepository(
                 throw HttpException(exception.response())
         }
     }
+
+    /**
+     * Function inserts JokeResponse object from the API response into the JokeResponse table
+     * @param jokeResponse
+     */
+    fun saveJokesToDatabase(jokeResponse: JokeResponse){
+        jokeDao.insertJokes(jokeResponse)
+    }
+
 
     /**
      * Listen for any changes within the JokeResponse table and reports them back to any
