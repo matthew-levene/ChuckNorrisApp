@@ -27,13 +27,11 @@
         app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
-        android:layout_margin="15dp">
+        android:layout_margin="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
 
             <TextView
                 android:id="@+id/joke_description_textview"
