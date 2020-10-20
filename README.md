@@ -1,4 +1,4 @@
-# ChuckNorrisApp
+# Chuck Norris App
 The Chuck Norris App provides a random selection of Chuck Norris jokes from The Internet Chuck Norris Database (ICNdb). These jokes can be added and removed from a custom favourites system within the app. Additionally, users are able to search for a random joke using a value between 1 and 520. Since the API service also provides explicit joke references, these jokes have been screened out of the app. 
 
 ![Alt text](app/docs/find_jokes_screenshot.png?raw=true "Title") ![Alt text](app/docs/favourites_screenshot.png?raw=true "Title")
@@ -14,7 +14,7 @@ The Project follows a MVVM with Repository pattern architecture. This architectu
 
 The View classes use data binding to communicate updates to their respective ViewModel classes. The ViewModel classes communicate with a Repository class using coroutines and receives responses using LiveData. This is then passed back to the View classes observing this LiveData. The Repository class communicates with a RESTful API using Retrofit and caches the response to a local Room database.
 
-# Test cases
+# Test Cases
 Espresso provides End-to-End testing of the application and network calls. Test cases included: 
 - Testing the HomeActivity BottomNavigationView and onItemSelected navigation components 
 - Testing the HomeFragment Search and RecyclerView and Add to Favourites dialog components
@@ -25,7 +25,7 @@ Mockito testing provides Unit testing of the ViewModel and Repository dependenci
 - Testing the dependency interactions between the FavouriteJokeViewModel and JokeRepository classes
 - Testing the dependency interactions between the JokeRepository and the JokeDao and JokeApiService interfaces
 
-# Libraries used
+# Libraries Used
 - Koin to provide constructor dependency injection to classes in the application
 - Retrofit to provide access to the backend API endpoints
 - WorkManager to retrieve random jokes from the API service in the background
