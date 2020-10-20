@@ -1,6 +1,8 @@
 # ChuckNorrisApp
 The Chuck Norris App provides a random selection of Chuck Norris jokes from The Internet Chuck Norris Database (ICNdb). These jokes can be added and removed from a custom favourites system within the app. Additionally, users are able to search for a random joke using a value between 1 and 520. Since the API service also provides explicit joke references, these jokes have been screened out of the app. 
 
+![Alt text](app/docs/find_jokes_screenshot.png?raw=true "Title") ![Alt text](app/docs/favourites_screenshot.png?raw=true "Title")
+
 # Software Development Approach
 This sofware was developed using an Agile methodology
 
