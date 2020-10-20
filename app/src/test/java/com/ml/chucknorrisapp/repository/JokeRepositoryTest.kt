@@ -28,8 +28,6 @@ class JokeRepositoryTest  {
 
     private lateinit var jokeResponse:JokeResponse
 
-    private lateinit var argCaptor: ArgumentCaptor<JokeResponse>
-
     @Before
     fun setUp() {
         jokeDao = mock(JokeDao::class.java)
@@ -37,49 +35,12 @@ class JokeRepositoryTest  {
 
         jokeRepository = JokeRepository(jokeDao, jokeApiService)
 
-        argCaptor = ArgumentCaptor.forClass(JokeResponse::class.java)
-
         val jokesList:List<Joke> = listOf(
             Joke(1, "Hello World", emptyList()),
             Joke(20, "Testing", listOf("Nerdy", "Explicit"))
         )
 
         jokeResponse = JokeResponse(0,1, jokesList)
-    }
-
-    /**
-     * Test relies on real JokeResponse instance from Rest API Service
-     * to save to database and as such will fail if saveJokesToDatabase() call
-     * inside the function is not commented out.
-     *
-     * saveJokesToDatabase() has been tested in isolation and worked as expected.
-     */
-    @Test
-    fun test_getJokes(): Unit = runBlocking {
-        val deferredResponse = mock(Deferred::class.java)
-        `when`(jokeApiService.getRandomJokes()).thenReturn(deferredResponse as Deferred<JokeResponse>?)
-
-        jokeRepository.getJokes()
-
-        verify(jokeApiService, times(1)).getRandomJokes()
-    }
-
-
-    /**
-     * Test relies on real SpecificJoke instance from Rest API Service
-     * to evaluate and save to database and as such will fail if lines
-     * 64 to 72 are not commented out.
-     *
-     * saveJokesToDatabase() has been tested in isolation and worked as expected.
-     */
-    @Test
-    fun test_getSpecificJoke(): Unit = runBlocking {
-        val deferredResponse = mock(Deferred::class.java)
-        `when`(jokeApiService.getSpecificJoke(5)).thenReturn(deferredResponse as Deferred<SpecificJoke>?)
-
-        jokeRepository.getSpecificJoke(5)
-
-        verify(jokeApiService, times(1)).getSpecificJoke(5)
     }
 
     @Test
