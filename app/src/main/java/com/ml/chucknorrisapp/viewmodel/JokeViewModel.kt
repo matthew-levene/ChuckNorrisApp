@@ -3,19 +3,21 @@ package com.ml.chucknorrisapp.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+//import androidx.lifecycle.viewModelScope
 import com.ml.chucknorrisapp.model.Joke
 import com.ml.chucknorrisapp.model.JokeResponse
 import com.ml.chucknorrisapp.repository.JokeRepository
 import com.ml.chucknorrisapp.util.LoadingState
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import retrofit2.HttpException
 
 /**
  * Class is used to service communications between the JokeRepository and the View classes
  */
 class JokeViewModel(private val jokeRepository: JokeRepository) : ViewModel(){
+
+    private val job = SupervisorJob()
+    private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
 
     /**
      * Listen for any changes in the database and expose them to the Views
